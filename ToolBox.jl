@@ -67,6 +67,12 @@ end
 ### range_intersection provides the intersection of the interval [a,b] with the intervals speficied by [x₁,...,xn]
 function range_intersection(A::Array{Float64}, B::Array{Float64})
 #=
+
+This function is a straightforward translation in Julia from Xavier Xavier MATLAB code
+Copyright (c) 2011, Xavier Xavier
+All rigths reserved.
+
+
 Purpose: Range/interval intersection
 
  A and B two ranges of closed intervals written
