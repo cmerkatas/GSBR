@@ -211,3 +211,13 @@ function synchronized(az, bz, z, N, n)
     return ((1. - temp3 ^ (2. * n - az)) * rand() + temp3 ^ (2. * n - az)) ^ (1. / (2. * n - az))
   end
 end
+
+function predictions(x::Array{Float64,2}, weights::Array{Float64,2})
+    np, _ = size(weights)
+    preds = zeros(np, size(x,2))
+    @inbounds for i in 1:1:np
+        preds[i,:] = g(x, weights[i,:])
+    end
+    stds = std(preds, dims=1)
+    return preds, stds
+end

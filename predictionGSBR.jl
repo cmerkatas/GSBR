@@ -31,7 +31,7 @@ function predictionGSBR(x,degree,maxiter,burnin,seed=1,T=0,filename = "/results"
   alambda,blambda= 1.,1.
 
   ### shape and rate for the gamma prior on precisions
-  at, bt = 0.001,0.001
+  at, bt = 3,0.001
 
   # GSB meausre latent variables
   d = ones(Int64,n_)  # clustering variables
@@ -142,11 +142,11 @@ function predictionGSBR(x,degree,maxiter,burnin,seed=1,T=0,filename = "/results"
       poly_right = copy(theta)
       poly_right[1] = poly_right[1] - (x[1] - sqrt(aux))
       poly_right = poly_right./poly_right[end]
-      roots_right = Polynomials.roots(Poly(poly_right))
+      roots_right = Polynomials.roots(Polynomial(poly_right))
       poly_left = copy(theta)
       poly_left[1] = poly_left[1] - (x[1] + sqrt(aux))
       poly_left = poly_left./poly_left[end]
-      roots_left = Polynomials.roots(Poly(poly_left))
+      roots_left = Polynomials.roots(Polynomial(poly_left))
       allroots = [roots_left roots_right]
       idx = abs.(imag(allroots)).<1e-08
       realroots = sort(real(allroots[idx]))
@@ -167,12 +167,12 @@ function predictionGSBR(x,degree,maxiter,burnin,seed=1,T=0,filename = "/results"
           poly_right_x = copy(theta)
           poly_right_x[1] = poly_right_x[1] - (x[n+j+1]-sqrt(ax2))
           poly_right_x = poly_right_x./poly_right_x[end]
-          roots_right_x = Polynomials.roots(Poly(poly_right_x))
+          roots_right_x = Polynomials.roots(Polynomial(poly_right_x))
 
           poly_left_x = copy(theta)
           poly_left_x[1] = poly_left_x[1] - (x[n+j+1]+sqrt(ax2))
           poly_left_x = poly_left_x./poly_left_x[end]
-          roots_left_x = Polynomials.roots(Poly(poly_left_x))
+          roots_left_x = Polynomials.roots(Polynomial(poly_left_x))
 
           allrootsx = [roots_left_x roots_right_x]
           idxx = abs.(imag(allrootsx)).<1e-06
